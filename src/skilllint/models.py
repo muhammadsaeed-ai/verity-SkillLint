@@ -50,6 +50,12 @@ class ScanReport:
             return "passed_with_warnings"
         return "passed"
 
+    def add(self, finding: Finding) -> None:
+        self.findings.append(finding)
+
+    def extend(self, findings: list[Finding]) -> None:
+        self.findings.extend(findings)
+
     def exit_code(self, strict: bool = False) -> int:
         return 1 if self.errors or (strict and self.warnings) else 0
 
