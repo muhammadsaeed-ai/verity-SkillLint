@@ -38,3 +38,15 @@ def test_exclude_glob_works(tmp_path: Path):
     (tmp_path / "CLAUDE.md").write_text("# Alternate instructions\n", encoding="utf-8")
     report = scan_path(tmp_path, excludes=["CLAUDE.md"])
     assert report.files_scanned == 1
+
+
+def test_outside_root_symlink_is_not_read(tmp_path: Path):
+    root = tmp_path / "repo"
+    root.mkdir()
+    outside = tmp_path / "private-AGENTS.md"
+    outside.write_text("# private content\n", encoding="utf-8")
+    (root / "AGENTS.md").symlink_to(outside)
+    report = scan_path(root)
+    assert report.errors == 1
+    assert report.findings[0].rule_id == "SLFILE005"
+    assert "private-AGENTS.md" not in report.findings[0].path

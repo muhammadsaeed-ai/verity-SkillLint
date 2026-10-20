@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/muhammadsaeed-ai/verity-SkillLint/docs/report.schema.json",
+  "title": "SkillLint JSON report",
+  "type": "object",
+  "required": ["schema_version", "tool", "tool_version", "root", "status", "summary", "findings"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "tool": {"const": "SkillLint"},
+    "tool_version": {"type": "string"},
+    "root": {"type": "string"},
+    "status": {"enum": ["passed", "passed_with_warnings", "failed"]},
+    "summary": {
+      "type": "object",
+      "required": ["files_scanned", "skills_scanned", "errors", "warnings", "infos", "total_findings"],
+      "properties": {
+        "files_scanned": {"type": "integer", "minimum": 0},
+        "skills_scanned": {"type": "integer", "minimum": 0},
+        "errors": {"type": "integer", "minimum": 0},
+        "warnings": {"type": "integer", "minimum": 0},
+        "infos": {"type": "integer", "minimum": 0},
+        "total_findings": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["rule_id", "severity", "message", "path", "line", "column", "recommendation", "evidence"],
+        "properties": {
+          "rule_id": {"type": "string"},
+          "severity": {"enum": ["error", "warning", "info"]},
+          "message": {"type": "string"},
+          "path": {"type": "string"},
+          "line": {"type": "integer", "minimum": 1},
+          "column": {"type": "integer", "minimum": 1},
+          "recommendation": {"type": "string"},
+          "evidence": {"type": "object"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

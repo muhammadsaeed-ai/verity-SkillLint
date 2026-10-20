@@ -71,7 +71,24 @@ def scan_path(target: str | Path, excludes: list[str] | None = None) -> ScanRepo
     report = ScanReport(root=str(root.resolve()))
     documents: list[tuple[str, str]] = []
     for path in paths:
-        display = relative_display(path, root)
+        try:
+            display = path.relative_to(root).as_posix()
+        except ValueError:
+            display = relative_display(path, root)
+        if path.is_symlink():
+            try:
+                path.resolve().relative_to(root.resolve())
+            except (OSError, ValueError):
+                report.add(Finding(
+                    "SLFILE005", "error", "Instruction symlink escapes the scan root", display, 1, 1,
+                    "Replace the symlink with a regular file inside the scanned repository; SkillLint will not read a target outside the root.",
+                ))
+            else:
+                report.add(Finding(
+                    "SLFILE006", "warning", "Symlinked instruction file was not scanned", display, 1, 1,
+                    "Use a regular file so the scanned content and repository provenance are unambiguous.",
+                ))
+            continue
         try:
             size = path.stat().st_size
             if size > MAX_SCAN_BYTES:

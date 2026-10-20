@@ -81,7 +81,12 @@ class ScanReport:
 
 
 def relative_display(path: Path, root: Path) -> str:
+    # Prefer the lexical path so an outside-root symlink does not reveal its
+    # target path in reports. The scanner validates symlinks separately.
     try:
-        return path.resolve().relative_to(root.resolve()).as_posix()
-    except (OSError, ValueError):
-        return path.as_posix()
+        return path.relative_to(root).as_posix()
+    except ValueError:
+        try:
+            return path.resolve().relative_to(root.resolve()).as_posix()
+        except (OSError, ValueError):
+            return path.as_posix()

@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import re
 
-from skilllint.links import visible_markdown_lines
 from skilllint.models import Finding
 
 _PATTERNS: tuple[tuple[str, str, str, str, re.Pattern[str]], ...] = (
@@ -42,7 +41,7 @@ _NEGATED = (
 
 def check_security(text: str, path: str) -> list[Finding]:
     findings: list[Finding] = []
-    for line_number, line in visible_markdown_lines(text):
+    for line_number, line in enumerate(text.splitlines(), 1):
         lowered = line.strip().lower()
         negated = any(token in lowered for token in _NEGATED)
         for rule_id, severity, title, message, regex in _PATTERNS:
