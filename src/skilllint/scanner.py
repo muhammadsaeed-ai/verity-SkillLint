@@ -28,9 +28,7 @@ def _is_instruction(path: Path) -> bool:
         return True
     if path.suffix.lower() == ".mdc" and ".cursor" in path.parts and "rules" in path.parts:
         return True
-    if path.name == "copilot-instructions.md" and ".github" in path.parts:
-        return True
-    return False
+    return path.name == "copilot-instructions.md" and ".github" in path.parts
 
 
 def _discover(target: Path, excludes: list[str]) -> tuple[Path, list[Path]]:
