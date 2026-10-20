@@ -1,0 +1,38 @@
+name: Lint agent instructions
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "SKILL.md"
+      - "AGENTS.md"
+      - "CLAUDE.md"
+      - "GEMINI.md"
+      - "**/SKILL.md"
+      - "**/*.instructions.md"
+      - ".cursor/rules/**"
+      - ".github/workflows/skilllint-example.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  skilllint:
+    name: Check agent instructions
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install SkillLint
+        run: python -m pip install .
+      - name: Scan repository instruction files
+        run: skilllint scan . --format sarif --output skilllint-report.sarif
+      - name: Upload SARIF report as a review artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: skilllint-sarif-report
+          path: skilllint-report.sarif
+          if-no-files-found: ignore

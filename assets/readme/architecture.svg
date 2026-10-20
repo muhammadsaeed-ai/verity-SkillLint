@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="820" viewBox="0 0 1440 820" role="img" aria-labelledby="title desc">
+<title id="title">SkillLint architecture</title>
+<desc id="desc">Skill files and agent instructions flow through safe discovery, frontmatter and content analysis, local link and permission checks, instruction conflict heuristics, and text, JSON, or SARIF reports.</desc>
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#060f1e"/><stop offset="1" stop-color="#12233a"/></linearGradient>
+ <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L0 6 L9 3Z" fill="#39e6cb"/></marker>
+ <style>
+ .h{font:700 32px system-ui,sans-serif;fill:#f4f8ff}.s{font:400 15px system-ui,sans-serif;fill:#91abc6}.t{font:700 18px system-ui,sans-serif;fill:#edf6ff}.b{font:400 14px system-ui,sans-serif;fill:#b1c6dc}.m{font:600 12px ui-monospace,monospace;fill:#9bf9e3}.c{fill:#0b1a2e;stroke:#294a6b;stroke-width:1.4}.a{fill:none;stroke:#39e6cb;stroke-width:2.8;marker-end:url(#arr)}
+ </style>
+</defs>
+<rect width="1440" height="820" rx="24" fill="url(#bg)"/><circle cx="1300" cy="60" r="180" fill="#0f9b8b" opacity=".08"/>
+<text x="52" y="62" class="h">SkillLint · System architecture</text><text x="54" y="91" class="s">Static analysis for agent skills and project instruction files — no instruction execution</text>
+<g>
+ <rect x="48" y="140" width="285" height="215" rx="16" class="c" stroke="#60a5fa"/><rect x="48" y="140" width="285" height="6" rx="3" fill="#60a5fa"/>
+ <text x="72" y="181" class="t">01 · Safe discovery</text><text x="72" y="216" class="b">SKILL.md · AGENTS.md</text><text x="72" y="242" class="b">CLAUDE.md · GEMINI.md</text><text x="72" y="268" class="b">Copilot / Cursor rules</text><text x="72" y="309" class="m">UTF-8 · bounded size</text>
+ <rect x="383" y="140" width="285" height="215" rx="16" class="c" stroke="#a78bfa"/><rect x="383" y="140" width="285" height="6" rx="3" fill="#a78bfa"/>
+ <text x="407" y="181" class="t">02 · Format contract</text><text x="407" y="216" class="b">YAML frontmatter fields</text><text x="407" y="242" class="b">Name + directory consistency</text><text x="407" y="268" class="b">Description length and clarity</text><text x="407" y="309" class="m">Stable SLxxxx rule IDs</text>
+ <rect x="718" y="140" width="335" height="215" rx="16" class="c" stroke="#34d399"/><rect x="718" y="140" width="335" height="6" rx="3" fill="#34d399"/>
+ <text x="742" y="181" class="t">03 · Content analyzers</text><text x="742" y="216" class="b">Broken links + path traversal</text><text x="742" y="242" class="b">Risky shell / permission patterns</text><text x="742" y="268" class="b">Modal instruction conflicts</text><text x="742" y="309" class="m">Heuristics, never false certainty</text>
+ <rect x="1103" y="140" width="288" height="215" rx="16" class="c" stroke="#fbbf24"/><rect x="1103" y="140" width="288" height="6" rx="3" fill="#fbbf24"/>
+ <text x="1127" y="181" class="t">04 · CI reports</text><text x="1127" y="216" class="b">Human-readable terminal</text><text x="1127" y="242" class="b">Versioned JSON</text><text x="1127" y="268" class="b">SARIF 2.1.0</text><text x="1127" y="309" class="m">Exit codes · strict mode</text>
+ <path d="M333 247 H375 M668 247 H710 M1053 247 H1095" class="a"/>
+</g>
+<rect x="48" y="407" width="1343" height="104" rx="16" fill="#0e2035" stroke="#294a6b"/><text x="76" y="444" class="t">Design principle: explain, do not execute</text><text x="76" y="474" class="b">All instructions are treated as untrusted text. No shell commands, agent tools, external links, or remote services are invoked.</text><text x="76" y="495" class="m">Static evidence → stable rule → actionable recommendation</text>
+<rect x="48" y="555" width="1343" height="173" rx="16" fill="#251d2b" stroke="#86485d"/><text x="76" y="594" font-family="system-ui" font-size="19" font-weight="700" fill="#fda4af">Trust boundary</text><text x="76" y="628" class="b">Metadata parsing intentionally supports common scalar/list/shallow-mapping forms, not every YAML feature.</text><text x="76" y="658" class="b">Conflict checks are lexical heuristics. Risk-pattern matches require review; a clean scan is not a security certification.</text><text x="76" y="688" class="b">CI can gate errors or warnings, while machine-readable reports preserve file locations for developer review.</text>
+<text x="1370" y="783" text-anchor="end" class="s">VERITYAGENT · SKILLLINT 1.0.0</text></svg>
