@@ -198,4 +198,4 @@ MIT. See [LICENSE](LICENSE).
 
 <code>ai-agent-skills</code> · <code>agent-skills</code> · <code>skilllint</code> · <code>claude-skills</code> · <code>agent-instructions</code> · <code>prompt-engineering</code> · <code>ai-coding-agents</code> · <code>static-analysis</code> · <code>security-lint</code> · <code>github-actions</code> · <code>SARIF</code> · <code>developer-tools</code>
 
-<p align="center"><sub>Built and maintained under VerityAgent · founded by Mohammed Saeed</sub></p>
+<p align="center"><sub>Built and maintained under VerityAgent · founded by Muhammad Saeed</sub></p>
